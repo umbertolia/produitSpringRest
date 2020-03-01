@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import hdn.example.catservice.dao.ProduitRepository;
@@ -21,15 +22,25 @@ public class CatServiceApplication implements CommandLineRunner {
 	@Autowired
 	private RepositoryRestConfiguration restConfiguration;
 
+	@Autowired
+	private Environment environment;
+
 	public static void main(String[] args) {
-		SpringApplication.run(CatServiceApplication.class, args);
+		try {
+			SpringApplication.run(CatServiceApplication.class, args);
+		} catch (Throwable e) {
+			System.err.println("ERREUR !!!!");
+			System.err.println(e.getMessage());
+		}
 
 	}
-
 
 	// pour setter le contextPath de la servlet
 	@Bean
 	public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
+		for (String profileName : environment.getActiveProfiles()) {
+			System.out.println("Currently active profile - " + profileName);
+		}
 		return factory -> factory.setContextPath("/catalogue");
 	}
 
@@ -37,13 +48,11 @@ public class CatServiceApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		restConfiguration.exposeIdsFor(Produit.class);
-			
+
 		produitRepository.findAll().forEach(produit -> {
 			System.out.println(produit);
 		});
 
 	}
-	
-	
 
 }
