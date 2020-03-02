@@ -23,7 +23,7 @@ import hdn.example.catservice.entities.Produit;
 @CrossOrigin(origins = "*")
 public class ProduitRestServices {
 
-    @Autowired
+    @Autowired(required = false)
     private ProduitRepository produitRepository;
 
     @GetMapping(value = "/listProduits")

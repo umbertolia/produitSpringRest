@@ -7,23 +7,36 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.util.StringUtils;
 
-import com.mysql.cj.util.StringUtils;
-
+import hdn.example.catservice.conf.MongoDbConfig;
 import hdn.example.catservice.dao.ProduitRepository;
+import hdn.example.catservice.daomongo.ProduitMongoRepository;
 import hdn.example.catservice.entities.Produit;
 import hdn.example.catservice.utils.Utilitaire;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+	    DataSourceAutoConfiguration.class, 
+	    DataSourceTransactionManagerAutoConfiguration.class, 
+	    HibernateJpaAutoConfiguration.class
+	})
+@Import(MongoDbConfig.class)
 public class CatServiceApplication implements CommandLineRunner {
 
-	@Autowired
+	@Autowired(required = false)
 	private ProduitRepository produitRepository;
+	
+	@Autowired(required = false)
+	ProduitMongoRepository produitMongoRepository;
 
 	@Autowired
 	private RepositoryRestConfiguration restConfiguration;
@@ -55,7 +68,7 @@ public class CatServiceApplication implements CommandLineRunner {
 		if (Utilitaire.isUnixOs()) {
 			System.setProperty("java.io.tmpdir", "/home/aragorn/temp");
 		}
-		return factory -> factory.setContextPath(!StringUtils.isNullOrEmpty(appliContextPath) ? appliContextPath : "");
+		return factory -> factory.setContextPath(!StringUtils.isEmpty(appliContextPath) ? appliContextPath : "");
 	}
 
 	@Override
@@ -63,12 +76,21 @@ public class CatServiceApplication implements CommandLineRunner {
 
 		restConfiguration.exposeIdsFor(Produit.class);
 
-		logger.debug("liste des produits...");
-		produitRepository.findAll().forEach(produit -> {
-			logger.debug(produit.toString());
-			System.out.println(produit);
-		});
-
+		if (produitRepository != null) {
+			logger.debug("liste des produits...");
+			produitRepository.findAll().forEach(produit -> {
+				logger.debug(produit.toString());
+				System.out.println(produit);
+			});
+		}
+		
+		if (produitMongoRepository != null) {
+			logger.debug("liste des produits en MongoDB...");
+			produitMongoRepository.findAll().forEach(produit -> {
+				logger.debug(produit.toString());
+				System.out.println(produit);
+			});
+		}
 	}
 
 }
