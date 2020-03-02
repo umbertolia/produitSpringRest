@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * Produit
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString()
 public class Produit implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,5 @@ public class Produit implements Serializable {
     private int quantite;
     
     private static final long serialVersionUID = 1L;
-
 }
 
