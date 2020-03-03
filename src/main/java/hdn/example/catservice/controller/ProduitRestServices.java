@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import hdn.example.catservice.dao.ProduitRepository;
+import hdn.example.catservice.daojpa.ProduitRepository;
 import hdn.example.catservice.entities.Produit;
 
 /**
@@ -23,7 +23,7 @@ import hdn.example.catservice.entities.Produit;
 @CrossOrigin(origins = "*")
 public class ProduitRestServices {
 
-    @Autowired(required = false)
+    @Autowired
     private ProduitRepository produitRepository;
 
     @GetMapping(value = "/listProduits")

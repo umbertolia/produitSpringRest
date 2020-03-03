@@ -7,35 +7,26 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.util.StringUtils;
 
-import hdn.example.catservice.conf.MongoDbConfig;
-import hdn.example.catservice.dao.ProduitRepository;
+import hdn.example.catservice.daojpa.ProduitRepository;
 import hdn.example.catservice.daomongo.ProduitMongoRepository;
 import hdn.example.catservice.entities.Produit;
 import hdn.example.catservice.utils.Utilitaire;
 
-@SpringBootApplication(exclude = {
-	    DataSourceAutoConfiguration.class, 
-	    DataSourceTransactionManagerAutoConfiguration.class, 
-	    HibernateJpaAutoConfiguration.class
-	})
-@Import(MongoDbConfig.class)
+@SpringBootApplication
 public class CatServiceApplication implements CommandLineRunner {
 
-	@Autowired(required = false)
+	@Autowired
 	private ProduitRepository produitRepository;
 	
-	@Autowired(required = false)
+	@Autowired
 	ProduitMongoRepository produitMongoRepository;
 
 	@Autowired
@@ -53,7 +44,8 @@ public class CatServiceApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		try {
 			SpringApplication.run(CatServiceApplication.class, args);
-		} catch (Throwable e) {
+		} 
+		catch (Throwable e) {
 			logger.error("ERREUR de configuration !!!!");
 		}
 	}
@@ -77,7 +69,9 @@ public class CatServiceApplication implements CommandLineRunner {
 		restConfiguration.exposeIdsFor(Produit.class);
 
 		if (produitRepository != null) {
-			logger.debug("liste des produits...");
+			logger.debug("\n*****************************************");
+			logger.debug("liste des produits avec JpaRepository...");
+			logger.debug("\n*****************************************");
 			produitRepository.findAll().forEach(produit -> {
 				logger.debug(produit.toString());
 				System.out.println(produit);
@@ -85,7 +79,9 @@ public class CatServiceApplication implements CommandLineRunner {
 		}
 		
 		if (produitMongoRepository != null) {
-			logger.debug("liste des produits en MongoDB...");
+			logger.debug("\n*****************************************");
+			logger.debug("liste des produits avec MongoRepository...");
+			logger.debug("\n*****************************************\n\n");
 			produitMongoRepository.findAll().forEach(produit -> {
 				logger.debug(produit.toString());
 				System.out.println(produit);

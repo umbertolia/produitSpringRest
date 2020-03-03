@@ -1,4 +1,4 @@
-package hdn.example.catservice.dao;
+package hdn.example.catservice.daojpa;
 
 import java.util.List;
 
