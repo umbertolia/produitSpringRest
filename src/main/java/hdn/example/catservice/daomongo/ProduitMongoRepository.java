@@ -3,7 +3,8 @@
  */
 package hdn.example.catservice.daomongo;
 
-import org.springframework.data.domain.Page;
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
@@ -22,7 +23,7 @@ import hdn.example.catservice.entities.Produit;
 public interface ProduitMongoRepository extends MongoRepository<Produit, Long> {
 	
 	 @RestResource(path = "byDesignationPage")
-	    public Page<Produit> findByDesignationContains(@Param("des") String des, Pageable pageable);
+	    public List<Produit> findByDesignationContains(@Param("des") String des, Pageable pageable);
 
 
 }
