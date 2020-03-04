@@ -1,4 +1,4 @@
-package hdn.example.catservice.controllerMongo;
+package hdn.example.catservice.controller;
 
 import java.util.List;
 
@@ -18,49 +18,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hdn.example.catservice.daomongo.ProduitMongoRepository;
-import hdn.example.catservice.entities.Produit;
+import hdn.example.catservice.entities.ProductMongo;
 
 /**
- * ProduitMongoRestServices : pour la base MongoDB
+ * ProduitMongoRestController : pour la base MongoDB
  */
+
 
 @RestController
 @RequestMapping(value = {"/mongo"})
 @CrossOrigin(origins = "*")
-public class ProduitMongoRestServices {
+public class ProduitMongoRestController {
 
     @Autowired
     private ProduitMongoRepository produitMongoRepository;
 
     @GetMapping(value = "/listProduitsMongoDB")
-    public List<Produit> listProduits() {
+    public List<ProductMongo> listProduits() {
         return produitMongoRepository.findAll();
     }
     
     @GetMapping(value = "/listProduitsMongoDBPageable")
-    public Page<Produit> listProduitsParPage(@RequestParam String page, @RequestParam String size) {
+    public Page<ProductMongo> listProduitsParPage(@RequestParam String page, @RequestParam String size) {
     	final Pageable pageableRequest = PageRequest.of(Integer.valueOf(page), Integer.valueOf(size));
         return produitMongoRepository.findAll(pageableRequest);
     }
     
     
     @GetMapping(value = "/listProduitsMongoDB/{id}")
-    public Produit getProduit(@PathVariable(name = "id") Long id) {
+    public ProductMongo getProduit(@PathVariable(name = "id") Long id) {
         return produitMongoRepository.findById(id).get();
     }
 
     @PutMapping(value = "/listProduitsMongoDB/{id}")
-    public Produit updateProduit(@PathVariable(name = "id") Long id, @RequestBody Produit produit) {
-        return produitMongoRepository.save(produit);
+    public ProductMongo updateProduit(@PathVariable(name = "id") Long id, @RequestBody ProductMongo productMongo) {
+        return produitMongoRepository.save(productMongo);
     }
 
     @PostMapping(value = "/listProduitsMongoDB")
-    public Produit creerProduit(@RequestBody Produit produit) {
-        return produitMongoRepository.save(produit);
+    public ProductMongo creerProduit(@RequestBody ProductMongo productMongo) {
+        return produitMongoRepository.save(productMongo);
     }
 
     @DeleteMapping(value = "/listProduitsMongoDB/{id}")
-    public void deleteProduit(@PathVariable(name = "id") Long id, @RequestBody Produit produit) {
+    public void deleteProduit(@PathVariable(name = "id") Long id) {
     	produitMongoRepository.deleteById(id);
     }
 

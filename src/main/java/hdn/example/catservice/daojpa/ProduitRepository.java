@@ -10,15 +10,16 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import hdn.example.catservice.entities.Produit;
+import hdn.example.catservice.entities.Product;
+import hdn.example.catservice.entities.ProductJpa;
 
 @CrossOrigin(origins = "*")
-@RepositoryRestResource(path = "produits")
-public interface ProduitRepository extends JpaRepository<Produit, Long> {
+@RepositoryRestResource(path = "produits", collectionResourceRel = "produits")
+public interface ProduitRepository extends JpaRepository<ProductJpa, Long> {
 
     @RestResource(path = "byDesignation")
-    public List<Produit> findByDesignationContains(@Param("des") String des);
+    public List<Product> findByDesignationContains(@Param("des") String des);
 
     @RestResource(path = "byDesignationPage")
-    public Page<Produit> findByDesignationContains(@Param("des") String des, Pageable pageable);
+    public Page<Product> findByDesignationContains(@Param("des") String des, Pageable pageable);
 }

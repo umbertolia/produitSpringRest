@@ -2,7 +2,6 @@ package hdn.example.catservice.conf;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 /**
  * @author Gandalf : Important !!! pour dissocier les packages des repository
@@ -10,8 +9,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  * ...A bean with that name has already been defined and overriding is disabled
  */
 @Configuration
-@EnableMongoRepositories(basePackages = 	{"hdn.example.catservice.daomongo"})
-@EnableJpaRepositories(basePackages = 		{"hdn.example.catservice.daojpa"})
+@EnableJpaRepositories(basePackages =  "hdn.example.catservice.daojpa")
 public class RepositoriesConfig {
 
 }

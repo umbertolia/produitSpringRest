@@ -6,8 +6,8 @@ import org.springframework.data.rest.core.config.Projection;
  * ProduitProjection
  */
 
- @Projection(name = "P1", types = Produit.class)
-public interface ProduitProjection {
+ @Projection(name = "P1", types = Product.class)
+public interface ProductProjection {
 
     public double getPrice();
 }
