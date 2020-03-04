@@ -1,4 +1,4 @@
-package hdn.example.catservice.controller;
+package hdn.example.catservice.controllerMongo;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,7 @@ import hdn.example.catservice.entities.Produit;
  */
 
 @RestController
+@RequestMapping(value = {"/mongo"})
 @CrossOrigin(origins = "*")
 public class ProduitMongoRestServices {
 
@@ -36,8 +38,8 @@ public class ProduitMongoRestServices {
     }
     
     @GetMapping(value = "/listProduitsMongoDBPageable")
-    public Page<Produit> listProduitsParPage(@RequestParam int pageNumber, @RequestParam int size) {
-    	final Pageable pageableRequest = PageRequest.of(pageNumber, size);
+    public Page<Produit> listProduitsParPage(@RequestParam String page, @RequestParam String size) {
+    	final Pageable pageableRequest = PageRequest.of(Integer.valueOf(page), Integer.valueOf(size));
         return produitMongoRepository.findAll(pageableRequest);
     }
     

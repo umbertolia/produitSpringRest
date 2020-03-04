@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import hdn.example.catservice.entities.Produit;
 
@@ -19,15 +20,8 @@ import hdn.example.catservice.entities.Produit;
 
 
 @CrossOrigin(origins = "*")
-@RepositoryRestResource(path = "produitsMongoDB", collectionResourceRel = "produitsMongoDB")
+@RepositoryRestResource(path = "produitsmongo", collectionResourceRel = "produitsmongo")
 public interface ProduitMongoRepository extends MongoRepository<Produit, Long> {
-	
-	@Override
-	default List<Produit> findAll() {
-		
-		return new ArrayList<Produit>();
-	}
-	
 	
 	/* @RestResource(path = "byDesignationPage")
 	    public List<Produit> findByDesignationContains(@Param("des") String des, Pageable pageable);
