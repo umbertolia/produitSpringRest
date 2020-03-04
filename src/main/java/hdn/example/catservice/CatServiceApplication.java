@@ -7,24 +7,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
+import org.springframework.data.repository.support.Repositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.util.StringUtils;
 
-import hdn.example.catservice.daojpa.ProduitRepository;
+import hdn.example.catservice.conf.RepositoriesConfig;
+//import hdn.example.catservice.daojpa.ProduitRepository;
 import hdn.example.catservice.daomongo.ProduitMongoRepository;
 import hdn.example.catservice.entities.Produit;
 import hdn.example.catservice.utils.Utilitaire;
 
 @SpringBootApplication
+@Import ({RepositoriesConfig.class})
 public class CatServiceApplication implements CommandLineRunner {
 
-	@Autowired
-	private ProduitRepository produitRepository;
+	/*@Autowired
+	private ProduitRepository produitRepository;*/
 	
 	@Autowired
 	ProduitMongoRepository produitMongoRepository;
@@ -68,7 +71,7 @@ public class CatServiceApplication implements CommandLineRunner {
 
 		restConfiguration.exposeIdsFor(Produit.class);
 
-		if (produitRepository != null) {
+		/*if (produitRepository != null) {
 			logger.debug("\n*****************************************");
 			logger.debug("liste des produits avec JpaRepository...");
 			logger.debug("\n*****************************************");
@@ -76,7 +79,7 @@ public class CatServiceApplication implements CommandLineRunner {
 				logger.debug(produit.toString());
 				System.out.println(produit);
 			});
-		}
+		}*/
 		
 		if (produitMongoRepository != null) {
 			logger.debug("\n*****************************************");
