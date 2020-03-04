@@ -17,16 +17,18 @@ import org.springframework.util.StringUtils;
 import hdn.example.catservice.daojpa.ProduitRepository;
 import hdn.example.catservice.daomongo.ProduitMongoRepository;
 import hdn.example.catservice.entities.Product;
+import hdn.example.catservice.entities.ProductJpa;
+import hdn.example.catservice.entities.ProductMongo;
 import hdn.example.catservice.utils.Utilitaire;
 
 @SpringBootApplication
 public class CatServiceApplication implements CommandLineRunner {
 
 	@Autowired
-	private ProduitRepository produitRepository;
+	private ProduitRepository<ProductJpa> produitRepository;
 	
 	@Autowired
-	ProduitMongoRepository produitMongoRepository;
+	ProduitMongoRepository<ProductMongo> produitMongoRepository;
 
 	@Autowired
 	private RepositoryRestConfiguration restConfiguration;

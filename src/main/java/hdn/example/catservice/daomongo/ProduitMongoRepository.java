@@ -12,6 +12,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import hdn.example.catservice.entities.Product;
 import hdn.example.catservice.entities.ProductMongo;
 
 /**
@@ -21,9 +22,9 @@ import hdn.example.catservice.entities.ProductMongo;
 
 @CrossOrigin(origins = "*")
 @RepositoryRestResource(path = "products", collectionResourceRel = "products")
-public interface ProduitMongoRepository extends MongoRepository<ProductMongo, Long> {
+public interface ProduitMongoRepository<T extends Product> extends MongoRepository<ProductMongo, Long> {
 
 	@RestResource(path = "byDesignationPage")
-	public List<ProductMongo> findByDesignationContains(@Param("des") String des, Pageable pageable);
+	public List<T> findByDesignationContains(@Param("des") String des, Pageable pageable);
 
 }

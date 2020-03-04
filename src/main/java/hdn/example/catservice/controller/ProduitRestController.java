@@ -13,18 +13,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import hdn.example.catservice.daojpa.ProduitRepository;
+import hdn.example.catservice.entities.Product;
 import hdn.example.catservice.entities.ProductJpa;
+
 
 /**
  * ProduitRestController
  */
-
 @RestController
 @CrossOrigin(origins = "*")
-public class ProduitRestController {
+public class ProduitRestController implements ProductRestController<ProductJpa> {
 
     @Autowired
-    private ProduitRepository produitRepository;
+    private ProduitRepository<Product> produitRepository;
 
     @GetMapping(value = "/listProduits")
     public List<ProductJpa> listProduits() {
@@ -32,24 +33,23 @@ public class ProduitRestController {
     }
 
     @GetMapping(value = "/listProduits/{id}")
-    public ProductJpa getProduit(@PathVariable(name = "id") Long id) {
+    public Product getProduit(@PathVariable(name = "id") Long id) {
         return produitRepository.findById(id).get();
     }
 
     @PutMapping(value = "/listProduits/{id}")
-    public ProductJpa updateProduit(@PathVariable(name = "id") Long id, @RequestBody ProductJpa ProductJpa) {
-        return produitRepository.save(ProductJpa);
+    public Product updateProduit(@PathVariable(name = "id") Long id, @RequestBody ProductJpa product) {
+        return produitRepository.save(product);
     }
 
     @PostMapping(value = "/listProduits")
-    public ProductJpa creerProduit(@RequestBody ProductJpa ProductJpa) {
-        return produitRepository.save(ProductJpa);
+    public Product creerProduit(@RequestBody ProductJpa product) {
+        return produitRepository.save(product);
     }
 
     @DeleteMapping(value = "/listProduits/{id}")
-    public void deleteProduit(@PathVariable(name = "id") Long id, @RequestBody ProductJpa ProductJpa) {
+    public void deleteProduit(@PathVariable(name = "id") Long id) {
         produitRepository.deleteById(id);
     }
-
 
 }

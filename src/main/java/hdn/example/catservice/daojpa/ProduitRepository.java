@@ -15,11 +15,11 @@ import hdn.example.catservice.entities.ProductJpa;
 
 @CrossOrigin(origins = "*")
 @RepositoryRestResource(path = "produits", collectionResourceRel = "produits")
-public interface ProduitRepository extends JpaRepository<ProductJpa, Long> {
+public interface ProduitRepository<T extends Product> extends JpaRepository<ProductJpa, Long> {
 
     @RestResource(path = "byDesignation")
-    public List<Product> findByDesignationContains(@Param("des") String des);
+    public List<T> findByDesignationContains(@Param("des") String des);
 
     @RestResource(path = "byDesignationPage")
-    public Page<Product> findByDesignationContains(@Param("des") String des, Pageable pageable);
+    public Page<T> findByDesignationContains(@Param("des") String des, Pageable pageable);
 }

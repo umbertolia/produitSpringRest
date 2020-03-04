@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hdn.example.catservice.daomongo.ProduitMongoRepository;
+import hdn.example.catservice.entities.Product;
 import hdn.example.catservice.entities.ProductMongo;
 
 /**
@@ -28,10 +29,10 @@ import hdn.example.catservice.entities.ProductMongo;
 @RestController
 @RequestMapping(value = {"/mongo"})
 @CrossOrigin(origins = "*")
-public class ProduitMongoRestController {
+public class ProduitMongoRestController implements ProductRestController<ProductMongo> {
 
     @Autowired
-    private ProduitMongoRepository produitMongoRepository;
+    private ProduitMongoRepository<Product> produitMongoRepository;
 
     @GetMapping(value = "/listProduitsMongoDB")
     public List<ProductMongo> listProduits() {
@@ -46,17 +47,17 @@ public class ProduitMongoRestController {
     
     
     @GetMapping(value = "/listProduitsMongoDB/{id}")
-    public ProductMongo getProduit(@PathVariable(name = "id") Long id) {
+    public Product getProduit(@PathVariable(name = "id") Long id) {
         return produitMongoRepository.findById(id).get();
     }
 
     @PutMapping(value = "/listProduitsMongoDB/{id}")
-    public ProductMongo updateProduit(@PathVariable(name = "id") Long id, @RequestBody ProductMongo productMongo) {
+    public Product updateProduit(@PathVariable(name = "id") Long id, @RequestBody ProductMongo productMongo) {
         return produitMongoRepository.save(productMongo);
     }
 
     @PostMapping(value = "/listProduitsMongoDB")
-    public ProductMongo creerProduit(@RequestBody ProductMongo productMongo) {
+    public Product creerProduit(@RequestBody ProductMongo productMongo) {
         return produitMongoRepository.save(productMongo);
     }
 
