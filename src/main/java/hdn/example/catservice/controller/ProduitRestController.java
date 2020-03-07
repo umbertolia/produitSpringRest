@@ -33,12 +33,12 @@ public class ProduitRestController implements ProductRestController<ProductJpa> 
     }
 
     @GetMapping(value = "/listProduits/{id}")
-    public Product getProduit(@PathVariable(name = "id") Long id) {
+    public Product getProduit(@PathVariable(name = "id") Integer id) {
         return produitRepository.findById(id).get();
     }
 
     @PutMapping(value = "/listProduits/{id}")
-    public Product updateProduit(@PathVariable(name = "id") Long id, @RequestBody ProductJpa product) {
+    public Product updateProduit(@PathVariable(name = "id") Integer id, @RequestBody ProductJpa product) {
         return produitRepository.save(product);
     }
 
@@ -48,7 +48,7 @@ public class ProduitRestController implements ProductRestController<ProductJpa> 
     }
 
     @DeleteMapping(value = "/listProduits/{id}")
-    public void deleteProduit(@PathVariable(name = "id") Long id) {
+    public void deleteProduit(@PathVariable(name = "id") Integer id) {
         produitRepository.deleteById(id);
     }
 

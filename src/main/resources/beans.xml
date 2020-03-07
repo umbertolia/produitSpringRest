@@ -1,0 +1,58 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   
+   
+	<bean id="productMongo1"
+		class="hdn.example.catservice.entities.ProductMongo">
+		<property name="id" value="1"></property>
+		<property name="designation" value="Ordi"></property>
+		<property name="price" value="1404.45"></property>
+		<property name="quantite" value="144"></property>
+	</bean>
+		<bean id="productMongo2"
+		class="hdn.example.catservice.entities.ProductMongo">
+		<property name="id" value="2"></property>
+		<property name="designation" value="Tablette"></property>
+		<property name="price" value="750.25"></property>
+		<property name="quantite" value="57"></property>
+	</bean>
+		<bean id="productMongo3"
+		class="hdn.example.catservice.entities.ProductMongo">
+		<property name="id" value="3"></property>
+		<property name="designation" value="Souris"></property>
+		<property name="price" value="25.50"></property>
+		<property name="quantite" value="28"></property>
+	</bean>
+		<bean id="productMongo4"
+		class="hdn.example.catservice.entities.ProductMongo">
+		<property name="id" value="4"></property>
+		<property name="designation" value="Clavier"></property>
+		<property name="price" value="35.99"></property>
+		<property name="quantite" value="15"></property>
+	</bean>
+		<bean id="productMongo5"
+		class="hdn.example.catservice.entities.ProductMongo">
+		<property name="id" value="5"></property>
+		<property name="designation" value="Smartphone"></property>
+		<property name="price" value="155.15"></property>
+		<property name="quantite" value="524"></property>
+	</bean>
+	<!-- A simple bean definition -->
+	<bean id="productsMongoList" 
+		class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<ref bean="productMongo1"></ref>
+				<ref bean="productMongo2"></ref>
+				<ref bean="productMongo3"></ref>
+				<ref bean="productMongo4"></ref>
+				<ref bean="productMongo5"></ref>
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>

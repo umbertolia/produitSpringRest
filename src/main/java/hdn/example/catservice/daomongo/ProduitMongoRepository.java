@@ -22,7 +22,7 @@ import hdn.example.catservice.entities.ProductMongo;
 
 @CrossOrigin(origins = "*")
 @RepositoryRestResource(path = "products", collectionResourceRel = "products")
-public interface ProduitMongoRepository<T extends Product> extends MongoRepository<ProductMongo, Long> {
+public interface ProduitMongoRepository<T extends Product> extends MongoRepository<ProductMongo, Integer> {
 
 	@RestResource(path = "byDesignationPage")
 	public List<T> findByDesignationContains(@Param("des") String des, Pageable pageable);

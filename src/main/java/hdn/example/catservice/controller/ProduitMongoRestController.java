@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +26,6 @@ import hdn.example.catservice.entities.ProductMongo;
 
 
 @RestController
-@RequestMapping(value = {"/mongo"})
 @CrossOrigin(origins = "*")
 public class ProduitMongoRestController implements ProductRestController<ProductMongo> {
 
@@ -47,12 +45,13 @@ public class ProduitMongoRestController implements ProductRestController<Product
     
     
     @GetMapping(value = "/listProduitsMongoDB/{id}")
-    public Product getProduit(@PathVariable(name = "id") Long id) {
+    public Product getProduit(@PathVariable(name = "id") Integer id) {
+
         return produitMongoRepository.findById(id).get();
     }
 
     @PutMapping(value = "/listProduitsMongoDB/{id}")
-    public Product updateProduit(@PathVariable(name = "id") Long id, @RequestBody ProductMongo productMongo) {
+    public Product updateProduit(@PathVariable(name = "id") Integer id, @RequestBody ProductMongo productMongo) {
         return produitMongoRepository.save(productMongo);
     }
 
@@ -62,7 +61,7 @@ public class ProduitMongoRestController implements ProductRestController<Product
     }
 
     @DeleteMapping(value = "/listProduitsMongoDB/{id}")
-    public void deleteProduit(@PathVariable(name = "id") Long id) {
+    public void deleteProduit(@PathVariable(name = "id") Integer id) {
     	produitMongoRepository.deleteById(id);
     }
 

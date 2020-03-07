@@ -14,8 +14,8 @@ import hdn.example.catservice.entities.Product;
 import hdn.example.catservice.entities.ProductJpa;
 
 @CrossOrigin(origins = "*")
-@RepositoryRestResource(path = "produits", collectionResourceRel = "produits")
-public interface ProduitRepository<T extends Product> extends JpaRepository<ProductJpa, Long> {
+@RepositoryRestResource(path = "produits", collectionResourceRel = "products")
+public interface ProduitRepository<T extends Product> extends JpaRepository<ProductJpa, Integer> {
 
     @RestResource(path = "byDesignation")
     public List<T> findByDesignationContains(@Param("des") String des);

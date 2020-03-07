@@ -1,5 +1,7 @@
 package hdn.example.catservice;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.util.StringUtils;
@@ -22,6 +25,7 @@ import hdn.example.catservice.entities.ProductMongo;
 import hdn.example.catservice.utils.Utilitaire;
 
 @SpringBootApplication
+@ImportResource("classpath:beans.xml") 
 public class CatServiceApplication implements CommandLineRunner {
 
 	@Autowired
@@ -35,6 +39,9 @@ public class CatServiceApplication implements CommandLineRunner {
 
 	@Autowired
 	private Environment environment;
+	
+	@Autowired
+	private List<ProductMongo> productsMongoList;
 	
 	@Value( "${application.contextPath}" )
 	private String appliContextPath;
@@ -67,6 +74,7 @@ public class CatServiceApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+
 		restConfiguration.exposeIdsFor(Product.class);
 
 		if (produitRepository != null) {
@@ -80,6 +88,7 @@ public class CatServiceApplication implements CommandLineRunner {
 		}
 		
 		if (produitMongoRepository != null) {
+			produitMongoRepository.saveAll(this.productsMongoList);
 			logger.debug("\n*****************************************");
 			logger.debug("liste des produits avec MongoRepository...");
 			logger.debug("\n*****************************************\n\n");
