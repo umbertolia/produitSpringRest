@@ -23,3 +23,4 @@ public interface ProduitRepository<T extends Product> extends JpaRepository<Prod
     @RestResource(path = "byDesignationPage")
     public Page<T> findByDesignationContains(@Param("des") String des, Pageable pageable);
 }
+	
