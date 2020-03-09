@@ -3,6 +3,7 @@
  */
 package hdn.example.catservice.daomongo;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,7 @@ import hdn.example.catservice.entities.ProductMongo;
 
 @CrossOrigin(origins = "*")
 @RepositoryRestResource(path = "products", collectionResourceRel = "products")
-public interface ProduitMongoRepository<T extends Product> extends MongoRepository<ProductMongo, Integer> {
+public interface ProduitMongoRepository<T extends Product> extends MongoRepository<ProductMongo, BigInteger> {
 
 	@RestResource(path = "byDesignationPage")
 	public List<T> findByDesignationContains(@Param("des") String des, Pageable pageable);

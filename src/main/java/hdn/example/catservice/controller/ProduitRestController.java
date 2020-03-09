@@ -1,5 +1,6 @@
 package hdn.example.catservice.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ProduitRestController implements ProductRestController<ProductJpa> 
 
     @GetMapping(value = "/listProduits/{id}")
     public Product getProduit(@PathVariable(name = "id") Integer id) {
-        return produitRepository.findById(id).get();
+        return produitRepository.findById(BigInteger.valueOf(id)).get();
     }
 
     @PutMapping(value = "/listProduits/{id}")
@@ -49,7 +50,7 @@ public class ProduitRestController implements ProductRestController<ProductJpa> 
 
     @DeleteMapping(value = "/listProduits/{id}")
     public void deleteProduit(@PathVariable(name = "id") Integer id) {
-        produitRepository.deleteById(id);
+        produitRepository.deleteById(BigInteger.valueOf(id));
     }
 
 }

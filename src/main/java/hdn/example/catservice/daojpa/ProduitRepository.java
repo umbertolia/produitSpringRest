@@ -1,5 +1,6 @@
 package hdn.example.catservice.daojpa;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -15,7 +16,7 @@ import hdn.example.catservice.entities.ProductJpa;
 
 @CrossOrigin(origins = "*")
 @RepositoryRestResource(path = "produits", collectionResourceRel = "products")
-public interface ProduitRepository<T extends Product> extends JpaRepository<ProductJpa, Integer> {
+public interface ProduitRepository<T extends Product> extends JpaRepository<ProductJpa, BigInteger> {
 
     @RestResource(path = "byDesignation")
     public List<T> findByDesignationContains(@Param("des") String des);
